@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getMeAPI, loginAPI } from "../api/auth.api";
+import { getMeAPI, loginAPI, logOutAPI } from "../api/auth.api";
 
 const useAuthStoreLogin = create((set) => ({
   user: null,
@@ -28,6 +28,21 @@ const useAuthStoreLogin = create((set) => ({
       set({ user: data.user, checkingAuth: false });
     } catch (error) {
       set({ user: null, checkingAuth: false });
+    }
+  },
+
+  logout: async () => {
+    try {
+      set({ loading: true });
+      await logOutAPI();
+      set({ user: null, loading: false });
+      return { success: true };
+    } catch (error) {
+      set({ loading: false });
+      return {
+        success: false,
+        message: error.response?.data?.message || "Logout failed",
+      };
     }
   },
 }));

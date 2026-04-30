@@ -20,7 +20,7 @@ export default function FaceExpression() {
 
     if (res.success) {
       toast.success("Logged out successfully");
-      navigate("/");
+      navigate("/login", { replace: true });
     } else {
       toast.error(res.message || "Logout failed");
     }

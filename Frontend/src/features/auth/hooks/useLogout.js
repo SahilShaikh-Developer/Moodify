@@ -1,6 +1,6 @@
-import useAuthStore from "../state/auth.storelogOut";
+import useAuthStoreLogin from "../state/auth.storelogin";
 
 export default function useLogout() {
-  const logout = useAuthStore((state) => state.logout);
+  const logout = useAuthStoreLogin((state) => state.logout);
   return { logout };
 }
