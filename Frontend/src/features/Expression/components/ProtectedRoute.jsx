@@ -1,9 +1,14 @@
 import { Navigate } from "react-router";
 import useAuthStoreLogin from "../../auth/state/auth.storelogin";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
-  const { user, checkingAuth } = useAuthStoreLogin();
+  const { user, checkingAuth, checkAuth } = useAuthStoreLogin();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   if (checkingAuth) {
     return (

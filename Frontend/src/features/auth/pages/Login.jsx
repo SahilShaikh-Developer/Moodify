@@ -15,7 +15,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, loading } = useLogin();
-  const { checkAuth } = useAuthStoreLogin();
 
   const [form, setForm] = useState({
     email: "",
@@ -32,7 +31,6 @@ const Login = () => {
       await login(form);
       toast.dismiss(toastId);
       toast.success("login successful");
-      await checkAuth();
       navigate("/", { replace: true });
     } catch (error) {
       toast.dismiss(toastId);
@@ -48,7 +46,6 @@ const Login = () => {
         const res = await googleAuthAPI(codeResponse.code);
 
         toast.success(res.message);
-        await checkAuth();
         navigate("/", { replace: true });
       } catch (error) {
         toast.error(error.response?.data?.message || "Google login failed");

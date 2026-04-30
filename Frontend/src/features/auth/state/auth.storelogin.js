@@ -23,17 +23,11 @@ const useAuthStoreLogin = create((set) => ({
 
   checkAuth: async () => {
     try {
+      set({ checkingAuth: true });
       const data = await getMeAPI();
       set({ user: data.user, checkingAuth: false });
     } catch (error) {
-      if(error.response?.status === 401){
-        set({ user: null, checkingAuth: false });
-      }else{
-        console.error("Auth check failed:", error)
-        set({ user: null, checkingAuth: false });
-      }
-      
-      
+      set({ user: null, checkingAuth: false });
     }
   },
 }));
