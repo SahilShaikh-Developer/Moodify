@@ -1,0 +1,11 @@
+@use "../styles/base/global";
+@use "../styles/fonts/typography";
+@use "../styles/colors/variables";
+
+/*Layouts*/
+@use "../styles/layouts/login";
+@use "../styles/layouts/register";
+@use "../styles/layouts/faceExpression";
+@use "../styles/layouts/musicPlayer";
+@use "../styles/layouts/playlists";
+@use "../styles/layouts/createSong";

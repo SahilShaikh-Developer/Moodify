@@ -1,0 +1,204 @@
+.create {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  }
+  
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 8, 16, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  
+  .modal {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(20, 20, 30, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      p {
+        color: #f0eaf8;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      
+      .close-btn {
+        color: #9d8fb0;
+        cursor: pointer;
+        transition: color 0.2s;
+        
+        &:hover {
+          color: #f0eaf8;
+        }
+      }
+    }
+    
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        
+        label {
+          color: #9d8fb0;
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+        
+        select {
+          background: rgba(0, 0, 0, 0.5);
+          color: #f0eaf8;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 0.8rem;
+          font-size: 0.95rem;
+          outline: none;
+          cursor: pointer;
+          
+          &:focus {
+            border-color: #8b5cf6;
+          }
+          
+          option {
+            background: #080810;
+          }
+        }
+        
+        .file-upload {
+          border: 2px dashed rgba(139, 92, 246, 0.4);
+          border-radius: 8px;
+          padding: 1.5rem;
+          text-align: center;
+          color: #8b5cf6;
+          font-weight: 600;
+          transition: all 0.2s;
+          cursor: pointer;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 100%;
+          display: block;
+          
+          &:hover {
+            background: rgba(139, 92, 246, 0.05);
+            border-color: #8b5cf6;
+          }
+
+          input[type="file"] {
+            display: none;
+          }
+        }
+      }
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      
+      .cancel-btn, .upload-btn {
+        padding: 0.7rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+      }
+      
+      .cancel-btn {
+        background: transparent;
+        color: #9d8fb0;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: #f0eaf8;
+        }
+      }
+      
+      .upload-btn {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        color: #fff;
+        
+        &:hover:not(:disabled) {
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+          transform: translateY(-2px);
+        }
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+[data-theme="light"] {
+  .modal-overlay {
+    background: rgba(245, 243, 255, 0.8);
+    .modal {
+      background: rgba(245, 243, 255, 0.95);
+      border-color: rgba(139, 92, 246, 0.4);
+      .modal-header p { color: #1a1035; }
+      .modal-header .close-btn { color: #5b4d7a; &:hover { color: #1a1035; } }
+      .modal-body .field label { color: #5b4d7a; }
+      .modal-body .field select {
+        background: #f5f3ff;
+        color: #1a1035;
+        border-color: rgba(139, 92, 246, 0.3);
+        option { background: #f5f3ff; }
+      }
+      .modal-footer .cancel-btn {
+        color: #5b4d7a;
+        &:hover { background: rgba(139, 92, 246, 0.08); color: #1a1035; }
+      }
+    }
+  }
+}
+@media (max-width: 480px) {
+  .modal-overlay .modal {
+    padding: 1.5rem;
+    border-radius: 0;
+    height: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+}

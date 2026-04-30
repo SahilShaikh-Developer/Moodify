@@ -1,0 +1,257 @@
+.music-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(139, 92, 246, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+  
+  .musicplay-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    
+    .top-wrapper {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      
+      .image {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 8px;
+          object-fit: cover;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          
+          .active {
+            color: #f0eaf8;
+            font-size: 1.1rem;
+            font-weight: 800;
+            white-space: nowrap;
+          }
+          
+          p {
+            color: #9d8fb0;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+    
+    .middle-wrapper {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        
+        svg {
+          color: #8b5cf6;
+          width: 1.4rem;
+          height: 1.4rem;
+          cursor: pointer;
+          transition: color 0.2s, transform 0.2s;
+          
+          &:hover {
+            color: #d8b4fe;
+            transform: scale(1.1);
+          }
+        }
+        
+        .pause {
+          width: 44px;
+          height: 44px;
+          background: linear-gradient(135deg, #8b5cf6, #ec4899);
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: transform 0.2s, box-shadow 0.2s;
+          
+          &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+          }
+          
+          svg {
+            color: #f0eaf8;
+            width: 1.4rem;
+            height: 1.4rem;
+            fill: #f0eaf8;
+            
+            &:hover {
+              color: #f0eaf8;
+              transform: none;
+            }
+          }
+        }
+      }
+      
+      .progress-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        
+        span {
+          font-size: 0.75rem;
+          color: #9d8fb0;
+        }
+        
+        .line {
+          flex: 1;
+          height: 6px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+          position: relative;
+          cursor: pointer;
+          
+          .fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: #8b5cf6;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4);
+          }
+          
+          .circle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #f0eaf8;
+            border-radius: 50%;
+            display: none;
+          }
+          
+          &:hover .circle {
+            display: block;
+          }
+          &:hover .fill {
+            background: #ec4899;
+          }
+        }
+      }
+    }
+    
+    .bottom-wrapper {
+      width: 30%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.5rem;
+      
+      .mood-badge {
+        padding: 0.3rem 0.8rem;
+        background: rgba(139, 92, 246, 0.15);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 12px;
+        color: #8b5cf6;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      
+      .volume {
+        color: #9d8fb0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: color 0.2s;
+        
+        &:hover {
+          color: #f0eaf8;
+        }
+        
+        svg {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+[data-theme="light"] {
+  .music-wrapper {
+    background: rgba(245, 243, 255, 0.9);
+    border-color: rgba(139, 92, 246, 0.2);
+    
+    .musicplay-wrapper .top-wrapper .image .title {
+      .active { color: #1a1035; }
+      p { color: #5b4d7a; }
+    }
+    
+    .musicplay-wrapper .middle-wrapper {
+      .controls {
+        svg { color: #7c3aed; &:hover { color: #1a1035; } }
+        .pause { background: linear-gradient(135deg, #8b5cf6, #ec4899); svg { fill: #f5f3ff; color: #f5f3ff; &:hover { color: #f5f3ff; } } }
+      }
+      .progress-container {
+        span { color: #5b4d7a; }
+        .line {
+          background: rgba(139, 92, 246, 0.2);
+          .circle { background: #1a1035; }
+        }
+      }
+    }
+    
+    .musicplay-wrapper .bottom-wrapper {
+      .volume { color: #5b4d7a; &:hover { color: #1a1035; } }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .music-wrapper {
+    padding: 0 1rem;
+    .musicplay-wrapper .top-wrapper { width: 25%; .title p { display: none; } .title .active { font-size: 0.8rem; } }
+    .musicplay-wrapper .middle-wrapper { width: 50%; .controls { gap: 1rem; svg { width: 1rem; height: 1rem; } .pause { width: 28px; height: 28px; } } }
+    .musicplay-wrapper .bottom-wrapper { width: 25%; }
+  }
+}
+
+@media (max-width: 480px) {
+  .music-wrapper {
+    height: 70px;
+    .musicplay-wrapper .top-wrapper { width: auto; flex: 1; .image img { width: 40px; height: 40px; } }
+    .musicplay-wrapper .middle-wrapper { 
+      width: auto;
+      .progress-container { display: none; }
+      .controls { gap: 0.8rem; svg { display: none; } .pause { display: flex; svg { display: block; } } }
+    }
+    .musicplay-wrapper .bottom-wrapper { display: none; }
+  }
+}

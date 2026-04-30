@@ -1,0 +1,19 @@
+/*All fonts SRC*/
+@font-face {
+  font-family: regular;
+  src: url(../../assets/Fonts/PlayfairDisplay-Regular.ttf);
+}
+@font-face {
+  font-family: regular-special;
+  src: url(../../assets/Fonts/SFPRODISPLAYREGULAR.OTF);
+}
+@font-face {
+  font-family: italic;
+  src: url(../../assets/Fonts/PlayfairDisplay-BoldItalic.ttf);
+}
+
+:root {
+  --font-regular: "regular", sans-serif;
+  --font-special: "regular-special", sans-serif;
+  --font-italic: "italic", sans-serif;
+}

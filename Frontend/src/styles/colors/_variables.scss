@@ -1,0 +1,112 @@
+/* DARK THEME (DEFAULT)*/
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #0f0f1a;
+  --bg-secondary: #171726;
+  --bg-third-color: #231835;
+  --bg-card: #21212c;
+  --bg-glass: rgba(255, 255, 255, 0.05);
+
+  /* Brand */
+  --color-primary: #8b5cf6;
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #e9e2c4;
+
+  /* Accent */
+  --color-accent: #ec4899;
+  --color-danger: #ef4444;
+  --color-success: #22c55e;
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-bg-color: #260944;
+
+  /* Player */
+  --player-bg: #2a1b4d;
+  --progress-bg: rgba(255, 255, 255, 0.1);
+
+  /* Buttons */
+  --btn-primary: #ef4444;
+  --btn-primary-hover: #dc2626;
+
+  --btn-secondary: #0eea5e;
+  --btn-secondary-hover: #22c55e;
+
+  --btn-third: #ffc838;
+  --btn-third-hover: #ebb223;
+  /* Shadow */
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+  /* Blur */
+  --blur-glass: blur(20px);
+
+  /* Radius */
+  --radius-lg: 50px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  /* Transition */
+  --transition: all 0.3s ease;
+  --transition-player: background 0.15s linear;
+  --transition-progress: left 0.15s linear;
+  --transition-image: transform 0.35s ease, box-shadow 0.35s ease;
+  --transform-image: scale(1.08);
+}
+
+/* LIGHT THEME */
+
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-primary: #dfc8f6;
+  --bg-secondary: #ffffff;
+  --bg-third-color: #f4c0f1;
+  --bg-card: #ffffff;
+  --bg-glass: rgba(0, 0, 0, 0.04);
+
+  /* Brand */
+  --color-primary: #8b5cf6;
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #efd0ef;
+
+  /* Accent */
+  --color-accent: #ec4899;
+  --color-danger: #ef4444;
+  --color-success: #22c55e;
+
+  /* Text */
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+
+  /* Borders */
+  --border-bg-color: #8a789c;
+  --border-color: rgba(0, 0, 0, 0.08);
+
+  /* Player */
+  --player-bg: #ede9fe;
+  --progress-bg: rgba(0, 0, 0, 0.1);
+
+  /* Buttons */
+  --btn-primary: #ef4444;
+  --btn-primary-hover: #dc2626;
+  --btn-secondary: #0eea5e;
+  --btn-secondary-hover: #22c55e;
+  --btn-third: #ffc838;
+  --btn-third-hover: #a97e10;
+
+  /* Shadow */
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  /* Transition */
+  --transition: all 0.3s ease;
+  --transition-player: background 0.15s linear;
+  --transition-progress: left 0.15s linear;
+  --transition-image: transform 0.35s ease, box-shadow 0.35s ease;
+  --transform-image: scale(1.08);
+}

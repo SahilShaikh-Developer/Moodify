@@ -1,0 +1,284 @@
+.playlist-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  max-height: 100%;
+
+  .outer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .top-wrapper {
+    padding: 2rem 2rem 1.5rem 2rem;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+    
+    .title {
+      p {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f0eaf8;
+        margin-bottom: 0.2rem;
+      }
+      span {
+        color: #9d8fb0;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .categories {
+      display: none;
+    }
+  }
+
+  .mood-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem 2rem 2rem 2rem;
+    
+    .mood-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      
+      .mood-select {
+        background: #0c0b12;
+        color: #f0eaf8;
+        color-scheme: dark;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        min-width: 120px;
+        transition: border-color 0.2s;
+        
+        &:hover, &:focus {
+          border-color: #8b5cf6;
+        }
+        
+        option {
+          background: #080810;
+          color: #f0eaf8;
+        }
+      }
+      
+      .fav-filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        border: 1px solid rgba(236, 72, 153, 0.3);
+        background: transparent;
+        color: #6b5f80;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        
+        svg { width: 1rem; height: 1rem; }
+        
+        &:hover {
+          border-color: #ec4899;
+          color: #ec4899;
+        }
+        
+        &.active {
+          background: rgba(236, 72, 153, 0.15);
+          border-color: #ec4899;
+          color: #ec4899;
+        }
+      }
+
+      .track-count {
+        color: #9d8fb0;
+        font-size: 0.9rem;
+        margin-left: auto;
+      }
+    }
+    
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: calc(100vh - 350px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-right: 0.5rem;
+      
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(139, 92, 246, 0.4);
+        border-radius: 4px;
+        &:hover {
+          background: rgba(139, 92, 246, 0.7);
+        }
+      }
+      
+      .track-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem;
+        border-radius: 8px;
+        background: transparent;
+        transition: background 0.2s;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+          
+          .delete-btn {
+            opacity: 1;
+          }
+        }
+        
+        .track-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 4px;
+          overflow: hidden;
+          flex-shrink: 0;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        
+        .track-info {
+          flex: 1;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          
+          .track-name {
+            color: #f0eaf8;
+            font-size: 0.95rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          
+          .track-artist {
+            color: #9d8fb0;
+            font-size: 0.8rem;
+          }
+        }
+        
+        .track-duration {
+          color: #9d8fb0;
+          font-size: 0.85rem;
+        }
+        
+        .fav-btn {
+          cursor: pointer;
+          color: #6b5f80;
+          display: flex;
+          align-items: center;
+          transition: all 0.2s ease;
+          
+          &:hover { color: #ec4899; transform: scale(1.1); }
+          &.active { color: #ec4899; }
+          
+          svg { width: 1.1rem; height: 1.1rem; }
+        }
+
+        .delete-btn {
+          color: #9d8fb0;
+          cursor: pointer;
+          opacity: 0;
+          transition: color 0.2s, opacity 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.4rem;
+          
+          &:hover {
+            color: #f87171;
+          }
+          
+          svg {
+            width: 1.1rem;
+            height: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+[data-theme="light"] {
+  .playlist-wrapper {
+    background: rgba(139, 92, 246, 0.06);
+    border-color: rgba(139, 92, 246, 0.2);
+    
+    .top-wrapper .title p { color: #1a1035; }
+    .top-wrapper .title span { color: #5b4d7a; }
+    
+    .mood-section .mood-header {
+      .mood-select {
+        background: #ece9fb;
+        color: #1a1035;
+        color-scheme: light;
+        border-color: rgba(139, 92, 246, 0.3);
+        option { background: #f5f3ff; color: #1a1035; }
+      }
+      .track-count { color: #5b4d7a; }
+    }
+    
+    .mood-section .track-list {
+      &::-webkit-scrollbar-thumb { 
+        background: rgba(139, 92, 246, 0.3); 
+      }
+      
+      .track-item {
+        &:hover { background: rgba(139, 92, 246, 0.08); }
+        .track-info .track-name { color: #1a1035; }
+        .track-info .track-artist { color: #5b4d7a; }
+        .track-duration { color: #5b4d7a; }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .playlist-wrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .playlist-wrapper {
+    .top-wrapper { padding: 1rem; .title p { font-size: 1.2rem; } }
+    .mood-section {
+      padding: 1rem;
+      .mood-header { flex-wrap: wrap; .track-count { width: 100%; text-align: right; margin-top: 0.5rem; } }
+      .track-list .track-item {
+        padding: 0.5rem;
+        .track-icon { width: 30px; height: 30px; }
+      }
+    }
+  }
+}
