@@ -2,7 +2,7 @@ import logo from "../../../assets/images/logo.png";
 import { Eye, FingerprintPattern, KeyRound, Mail, EyeOff } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import useLogin from "../hooks/useLogin";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -15,7 +15,13 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, loading } = useLogin();
-  const checkAuth = useAuthStoreLogin((state) => state.checkAuth);
+  const { user, checkAuth } = useAuthStoreLogin();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
 
   const [form, setForm] = useState({
     email: "",
@@ -34,7 +40,7 @@ const Login = () => {
     if (res.success) {
       toast.success("login successful");
       await checkAuth();
-      navigate("/faceExpression");
+      navigate("/", { replace: true });
     } else {
       toast.error(res.message);
     }
@@ -47,7 +53,8 @@ const Login = () => {
         const res = await googleAuthAPI(codeResponse.code);
 
         toast.success(res.message);
-        navigate("/faceExpression");
+        await checkAuth();
+        navigate("/", { replace: true });
       } catch (error) {
         toast.error(error.response?.data?.message || "Google login failed");
       }
@@ -85,8 +92,8 @@ const Login = () => {
         </div>
         <div className="btn-wrapper">
           <button
-            className={location.pathname === "/" ? "active" : ""}
-            onClick={() => navigate("/")}
+            className={location.pathname === "/login" ? "active" : ""}
+            onClick={() => navigate("/login")}
           >
             Login
           </button>

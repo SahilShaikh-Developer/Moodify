@@ -10,8 +10,9 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useRegister from "../hooks/useRegister";
+import useAuthStoreLogin from "../state/auth.storelogin";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import { googleAuthAPI } from "../api/auth.api";
@@ -24,6 +25,13 @@ const Register = () => {
   const location = useLocation();
 
   const { register } = useRegister();
+  const { user, checkAuth } = useAuthStoreLogin();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -42,8 +50,9 @@ const Register = () => {
 
     if (res?.success) {
       toast.success("Account created successfully");
+      await checkAuth();
       setTimeout(() => {
-        navigate("/");
+        navigate("/", { replace: true });
       }, 1000);
     } else {
       toast.error(res?.message || "Registration failed");
@@ -61,7 +70,8 @@ const Register = () => {
         const res = await googleAuthAPI(codeResponse.code);
 
         toast.success(res.message);
-        navigate("/faceExpression");
+        await checkAuth();
+        navigate("/", { replace: true });
       } catch (error) {
         toast.error(error.response?.data?.message || "Google login failed");
       }
@@ -96,8 +106,8 @@ const Register = () => {
         </div>
         <div className="btn-wrapper">
           <button
-            className={location.pathname === "/" ? "active" : ""}
-            onClick={() => navigate("/")}
+            className={location.pathname === "/login" ? "active" : ""}
+            onClick={() => navigate("/login")}
           >
             Login
           </button>
@@ -172,7 +182,7 @@ const Register = () => {
           <div className="already">
             <p>
               Already have an account?{" "}
-              <Link to="/" className="signin-link">
+              <Link to="/login" className="signin-link">
                 Sign In
               </Link>
             </p>
