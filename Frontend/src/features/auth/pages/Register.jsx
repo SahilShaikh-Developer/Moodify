@@ -55,7 +55,8 @@ const Register = () => {
   const strengthPercent = Math.min((passwordLength / 8) * 100, 100);
 
   const googleLogin = useGoogleLogin({
-    flow: "auth-code", 
+    flow: "auth-code",
+    redirect_uri: window.location.origin,
     onSuccess: async (codeResponse) => {
       try {
         const res = await googleAuthAPI(codeResponse.code);

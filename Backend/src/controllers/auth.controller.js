@@ -199,7 +199,10 @@ async function googleAuth(req, res) {
     }
 
     //Verify Google token
-    const { tokens } = await client.getToken(code);
+    const { tokens } = await client.getToken({
+      code,
+      redirect_uri: process.env.FRONTEND_URL || "http://localhost:5173",
+    });
 
     if (!tokens.id_token) {
       return res.status(400).json({

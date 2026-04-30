@@ -41,6 +41,7 @@ const Login = () => {
 
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
+    redirect_uri: window.location.origin,
     onSuccess: async (codeResponse) => {
       try {
         const res = await googleAuthAPI(codeResponse.code);
