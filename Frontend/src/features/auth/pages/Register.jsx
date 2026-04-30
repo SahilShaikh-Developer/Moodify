@@ -25,13 +25,7 @@ const Register = () => {
   const location = useLocation();
 
   const { register } = useRegister();
-  const { user, checkAuth } = useAuthStoreLogin();
-
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, navigate]);
+  const { checkAuth } = useAuthStoreLogin();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -43,21 +37,18 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await register(form);
-
-    if (res?.success) {
+    try {
+      await register(form);
       toast.success("Account created successfully");
       await checkAuth();
-      setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 1000);
-    } else {
-      toast.error(res?.message || "Registration failed");
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Register failed:", error);
+      toast.error(error.response?.data?.message || "Registration failed");
     }
-  }
+  };
 
   const passwordLength = form.password.length;
   const isValidPassword = passwordLength >= 8;

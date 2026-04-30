@@ -9,13 +9,9 @@ export default function useRegister() {
       setLoading(true);
       const data = await registerAPI(formData);
       setUser(data.user);
-
-      return { success: true, message: data.message };
+      return data;
     } catch (error) {
-      return {
-        success: false,
-        message: error.response?.data?.message || "Registration failed",
-      };
+      throw error;
     } finally {
       setLoading(false);
     }

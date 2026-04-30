@@ -8,21 +8,16 @@ const useAuthStoreLogin = create((set) => ({
 
   login: async (formData) => {
     try {
-      set({ loading: true });
-      const data = await loginAPI(formData);
-
-      set({
-        user: data.user,
-        loading: false,
-        });
-      return { success: true, message: data.message };
+      set({ loading: true, error: null });
+      const response = await loginAPI(formData);
+      set({ user: response.user, loading: false });
+      return response;
     } catch (error) {
-      set({ loading: false });
-
-      return {
-        success: false,
-        message: error.response?.data?.message || "Login failed",
-      };
+      set({ 
+        error: error.response?.data?.message || "Login failed", 
+        loading: false 
+      });
+      throw error;
     }
   },
 

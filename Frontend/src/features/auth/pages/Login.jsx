@@ -15,13 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, loading } = useLogin();
-  const { user, checkAuth } = useAuthStoreLogin();
-
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, navigate]);
+  const { checkAuth } = useAuthStoreLogin();
 
   const [form, setForm] = useState({
     email: "",
@@ -31,20 +25,21 @@ const Login = () => {
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Signing in...");
-
-    const res = await login(form);
-    toast.dismiss(toastId);
-    if (res.success) {
+    try {
+      await login(form);
+      toast.dismiss(toastId);
       toast.success("login successful");
       await checkAuth();
       navigate("/", { replace: true });
-    } else {
-      toast.error(res.message);
+    } catch (error) {
+      toast.dismiss(toastId);
+      console.error("Login failed:", error);
+      toast.error(error.response?.data?.message || "Login failed");
     }
-  }
+  };
 
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
