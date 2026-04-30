@@ -55,7 +55,12 @@ async function registerUser(req, res) {
     );
 
     /**Token save on Cookies */
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
     return res.status(201).json({
       message: "User registered successfully",
       user: {
@@ -120,7 +125,12 @@ async function loginUser(req, res) {
       process.env.JWT_SECRET,
       { expiresIn: "3d" },
     );
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       message: "User logged in successfully",
@@ -228,7 +238,12 @@ async function googleAuth(req, res) {
       process.env.JWT_SECRET,
       { expiresIn: "3d" },
     );
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       message: "Google login successful",
