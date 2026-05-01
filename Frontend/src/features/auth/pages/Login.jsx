@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import useLogin from "../hooks/useLogin";
+import { useGoogleLogin } from "@react-oauth/google";
+import { googleAuthAPI } from "../api/auth.api";
 import useAuthStoreLogin from "../state/auth.storelogin";
 
 const Login = () => {
@@ -37,17 +39,25 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = `${window.location.origin}/auth/callback`;
-    const scope = "email profile";
-    const responseType = "token";
-
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${encodeURIComponent(scope)}&prompt=select_account`;
-
-    window.location.href = googleAuthUrl;
-  };
-
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const toastId = toast.loading("Signing in with Google...");
+      try {
+        const res = await googleAuthAPI(tokenResponse.access_token);
+        toast.dismiss(toastId);
+        toast.success(res.message);
+        navigate("/", { replace: true });
+      } catch (error) {
+        toast.dismiss(toastId);
+        toast.error(error.response?.data?.message || "Google login failed");
+      }
+    },
+    onError: () => {
+      toast.error("Google login failed. Please try again.");
+    },
+    ux_mode: "redirect",
+    redirect_uri: window.location.origin,
+  });
   return (
     <motion.div
       className="main-login"
@@ -129,7 +139,7 @@ const Login = () => {
             <div className="line"></div>
           </div>
           <div className="google-btn">
-            <button type="button" onClick={handleGoogleLogin}>
+            <button type="button" onClick={() => googleLogin()}>
               <FingerprintPattern />
               Log in with Google
             </button>
