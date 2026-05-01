@@ -23,8 +23,7 @@ export async function getMeAPI() {
   return response.data;
 }
 
-export async function googleAuthAPI(code) {
-  const response = await axiosInstance.post("/auth/google", { code });
-
+export async function googleAuthAPI(access_token) {
+  const response = await axiosInstance.post("/auth/google", { access_token });
   return response.data;
 }

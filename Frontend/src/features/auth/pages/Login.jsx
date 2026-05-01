@@ -40,12 +40,10 @@ const Login = () => {
   };
 
   const googleLogin = useGoogleLogin({
-    flow: "auth-code",
-    redirect_uri: window.location.origin,
-    onSuccess: async (codeResponse) => {
+    onSuccess: async (tokenResponse) => {
       const toastId = toast.loading("Signing in with Google...");
       try {
-        const res = await googleAuthAPI(codeResponse.code);
+        const res = await googleAuthAPI(tokenResponse.access_token);
         toast.dismiss(toastId);
         toast.success(res.message);
         navigate("/", { replace: true });
@@ -54,15 +52,8 @@ const Login = () => {
         toast.error(error.response?.data?.message || "Google login failed");
       }
     },
-    onError: (error) => {
-      console.error("Google OAuth error:", error);
+    onError: () => {
       toast.error("Google login failed. Please try again.");
-    },
-    onNonOAuthError: (error) => {
-      console.error("Non OAuth error:", error);
-      if (error.type !== "popup_closed") {
-        toast.error("Google login was cancelled.");
-      }
     },
   });
   return (

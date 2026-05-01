@@ -190,43 +190,24 @@ async function logoutUser(req, res) {
 
 async function googleAuth(req, res) {
   try {
-    const { code } = req.body;
-
-    if (!code) {
-      return res.status(400).json({
-        message: "Google token is required",
-      });
+    const { access_token } = req.body;
+    if (!access_token) {
+      return res.status(400).json({ message: "Access token is required" });
     }
 
-    //Verify Google token
-    const { tokens } = await client.getToken({
-      code,
-      redirect_uri: process.env.FRONTEND_URL || "http://localhost:5173",
-    });
-
-    if (!tokens.id_token) {
-      return res.status(400).json({
-        message: "Failed to retrieve id_token from Google",
-      });
+    // Get user info from Google using access_token
+    const response = await fetch(
+      `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`
+    );
+    const payload = await response.json();
+    
+    if (!payload.email) {
+      return res.status(400).json({ message: "Google account email not found" });
     }
-    const ticket = await client.verifyIdToken({
-      idToken: tokens.id_token,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
-    const payload = ticket.getPayload();
 
     const { email, name, picture, sub } = payload;
 
-    if (!email) {
-      return res.status(400).json({
-        message: "Google account email not found",
-      });
-    }
-
-    //Check if user exists
     let user = await userModel.findOne({ email });
-
-    //If user does not exists
     if (!user) {
       user = await userModel.create({
         username: name,
@@ -237,20 +218,18 @@ async function googleAuth(req, res) {
       });
     }
 
-    // JWT
     const token = jwt.sign(
-      {
-        id: user._id,
-        username: user.username,
-      },
+      { id: user._id, username: user.username },
       process.env.JWT_SECRET,
-      { expiresIn: "3d" },
+      { expiresIn: "3d" }
     );
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     return res.status(200).json({
@@ -263,9 +242,7 @@ async function googleAuth(req, res) {
     });
   } catch (error) {
     console.error("Google Auth Error:", error);
-    return res.status(401).json({
-      message: "Google authentication failed",
-    });
+    return res.status(401).json({ message: "Google authentication failed" });
   }
 }
 
