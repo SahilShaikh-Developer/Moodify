@@ -55,8 +55,8 @@ const Login = () => {
     onError: () => {
       toast.error("Google login failed. Please try again.");
     },
-    ux_mode: "popup",
-    prompt: "select_account",
+    ux_mode: "redirect",
+    redirect_uri: window.location.origin,
   });
   return (
     <motion.div
