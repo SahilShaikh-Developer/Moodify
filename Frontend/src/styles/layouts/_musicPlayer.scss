@@ -184,20 +184,56 @@
         text-transform: uppercase;
       }
       
-      .volume {
-        color: #9d8fb0;
-        cursor: pointer;
+      .volume-wrapper {
+        position: relative;
         display: flex;
         align-items: center;
-        transition: color 0.2s;
-        
-        &:hover {
-          color: #f0eaf8;
+        justify-content: center;
+
+        .volume-slider-popup {
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1a0a2e;
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          border-radius: 8px;
+          padding: 10px 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.2s ease;
+          margin-bottom: 8px;
+
+          .volume-slider {
+            -webkit-appearance: slider-vertical;
+            appearance: slider-vertical;
+            writing-mode: vertical-lr;
+            direction: rtl;
+            width: 4px;
+            height: 70px;
+            cursor: pointer;
+            accent-color: #8b5cf6;
+          }
         }
-        
-        svg {
-          width: 1.2rem;
-          height: 1.2rem;
+
+        .volume-icon {
+          cursor: pointer;
+          color: #9d8fb0;
+          display: flex;
+          align-items: center;
+          transition: color 0.2s;
+
+          &:hover { color: #f0eaf8; }
+
+          svg { width: 1.2rem; height: 1.2rem; }
+        }
+
+        &:hover .volume-slider-popup {
+          opacity: 1;
+          pointer-events: all;
         }
       }
     }
@@ -229,7 +265,14 @@
     }
     
     .musicplay-wrapper .bottom-wrapper {
-      .volume { color: #5b4d7a; &:hover { color: #1a1035; } }
+      .volume-wrapper {
+        .volume-slider-popup {
+          background: #ffffff;
+          border-color: rgba(139, 92, 246, 0.2);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .volume-icon { color: #5b4d7a; &:hover { color: #1a1035; } }
+      }
     }
   }
 }
@@ -295,7 +338,7 @@
         justify-content: flex-end;
         align-items: center;
         .mood-badge { display: none; }
-        .volume {
+        .volume-wrapper {
           display: flex;
           align-items: center;
           justify-content: flex-end;

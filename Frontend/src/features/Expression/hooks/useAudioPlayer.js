@@ -24,6 +24,7 @@ const useAudioPlayer = (src, shouldPlayProp) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(1);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -71,12 +72,28 @@ const useAudioPlayer = (src, shouldPlayProp) => {
     }
   }, [audioRef]);
 
+  const changeVolume = useCallback((e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = newVolume;
+    setIsMuted(newVolume === 0);
+    if (newVolume > 0) audio.muted = false;
+  }, [audioRef]);
+
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.muted = !audio.muted;
-  }, [audioRef]);
+    const newMuted = !isMuted;
+    audio.muted = newMuted;
+    setIsMuted(newMuted);
+    if (!newMuted && volume === 0) {
+      setVolume(0.5);
+      audio.volume = 0.5;
+    }
+  }, [audioRef, isMuted, volume]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -198,6 +215,8 @@ const useAudioPlayer = (src, shouldPlayProp) => {
     formatTime,
     isMuted,
     toggleMute,
+    volume,
+    changeVolume,
   };
 };
 
