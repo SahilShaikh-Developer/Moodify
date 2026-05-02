@@ -187,8 +187,8 @@
       .volume-wrapper {
         display: flex;
         align-items: center;
-        gap: 8px;
-        min-width: 130px;
+        gap: 10px;
+        min-width: 150px;
 
         .volume-icon {
           cursor: pointer;
@@ -196,16 +196,21 @@
           display: flex;
           align-items: center;
           flex-shrink: 0;
-          transition: color 0.2s;
-          &:hover { color: #f0eaf8; }
-          svg { width: 1.1rem; height: 1.1rem; }
+          transition: all 0.2s ease;
+
+          &:hover { 
+            color: #ec4899;
+            transform: scale(1.1);
+          }
+
+          svg { width: 1.3rem; height: 1.3rem; }
         }
 
         .volume-slider {
           -webkit-appearance: none;
           appearance: none;
-          width: 90px;
-          height: 4px;
+          width: 110px;
+          height: 5px;
           border-radius: 4px;
           outline: none;
           cursor: pointer;
@@ -217,7 +222,7 @@
             rgba(255, 255, 255, 0.15) var(--volume-percent, 70%),
             rgba(255, 255, 255, 0.15) 100%
           );
-          transition: background 0.1s ease;
+          transition: background 0.1s ease, height 0.2s ease;
 
           &::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -228,17 +233,30 @@
             background: #ffffff;
             cursor: pointer;
             transition: width 0.2s ease, height 0.2s ease;
-            box-shadow: 0 0 6px rgba(139, 92, 246, 0.8);
+            box-shadow: 0 0 6px rgba(236, 72, 153, 0.8);
           }
 
-          &:hover::-webkit-slider-thumb {
-            width: 14px;
-            height: 14px;
+          &:hover {
+            height: 6px;
+            background: linear-gradient(
+              to right,
+              #ec4899 0%,
+              #a855f7 var(--volume-percent, 70%),
+              rgba(255, 255, 255, 0.15) var(--volume-percent, 70%),
+              rgba(255, 255, 255, 0.15) 100%
+            );
+
+            &::-webkit-slider-thumb {
+              width: 15px;
+              height: 15px;
+              background: #ffffff;
+              box-shadow: 0 0 8px rgba(236, 72, 153, 0.9);
+            }
           }
 
           &::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
             background: #ffffff;
             border: none;
@@ -276,7 +294,10 @@
     
     .musicplay-wrapper .bottom-wrapper {
       .volume-wrapper {
-        .volume-icon { color: #5b4d7a; }
+        .volume-icon { 
+          color: #5b4d7a;
+          &:hover { color: #ec4899; }
+        }
         .volume-slider {
           background: linear-gradient(
             to right,
@@ -285,7 +306,15 @@
             rgba(0, 0, 0, 0.12) var(--volume-percent, 70%),
             rgba(0, 0, 0, 0.12) 100%
           );
-          &::-webkit-slider-thumb { background: #7c3aed; }
+          &:hover {
+            background: linear-gradient(
+              to right,
+              #ec4899 0%,
+              #a855f7 var(--volume-percent, 70%),
+              rgba(0, 0, 0, 0.12) var(--volume-percent, 70%),
+              rgba(0, 0, 0, 0.12) 100%
+            );
+          }
         }
       }
     }
@@ -301,6 +330,10 @@
   }
   .volume-wrapper .volume-slider {
     display: none;
+  }
+  .volume-wrapper .volume-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 }
 
