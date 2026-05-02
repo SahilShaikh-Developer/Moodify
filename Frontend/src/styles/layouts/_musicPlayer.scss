@@ -246,27 +246,61 @@
 @media (max-width: 480px) {
   .music-wrapper {
     height: 70px;
-    .musicplay-wrapper .top-wrapper { width: auto; flex: 1; .image img { width: 40px; height: 40px; } }
-    .musicplay-wrapper .middle-wrapper { 
-      width: auto;
-      .progress-container { display: none; }
-      .controls { 
-        gap: 0.8rem; 
-        svg { 
-          display: block !important; 
-          width: 1rem !important; 
-          height: 1rem !important; 
-        } 
-        .pause { 
-          display: flex; 
+    padding: 0 0.8rem;
+    .musicplay-wrapper {
+      .top-wrapper { 
+        width: auto; 
+        flex: 1; 
+        .image {
+          gap: 0.5rem;
+          img { width: 36px; height: 36px; } 
+          .title {
+            .active { font-size: 0.8rem; }
+            p { font-size: 0.7rem; }
+          }
+        }
+      }
+      .middle-wrapper { 
+        width: auto;
+        flex: 1.5;
+        display: flex;
+        justify-content: center;
+        .progress-container { display: none; }
+        .controls { 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem; 
           svg { 
             display: block !important; 
-            width: 1.2rem !important; 
-            height: 1.2rem !important; 
+            width: 1rem !important; 
+            height: 1rem !important; 
           } 
-        } 
+          .pause { 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            svg { 
+              display: block !important; 
+              width: 1.2rem !important; 
+              height: 1.2rem !important; 
+            } 
+          } 
+        }
+      }
+      .bottom-wrapper { 
+        width: auto;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .mood-badge { display: none; }
+        .volume {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
       }
     }
-    .musicplay-wrapper .bottom-wrapper { display: none; }
   }
 }
