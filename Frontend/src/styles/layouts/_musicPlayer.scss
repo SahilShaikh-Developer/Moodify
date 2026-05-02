@@ -196,14 +196,13 @@
           display: flex;
           align-items: center;
           flex-shrink: 0;
-          transition: all 0.2s ease;
+          transition: color 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-          &:hover { 
-            color: #ec4899;
-            transform: scale(1.1);
+          svg { 
+            width: 1.3rem; 
+            height: 1.3rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
-
-          svg { width: 1.3rem; height: 1.3rem; }
         }
 
         .volume-slider {
@@ -215,6 +214,8 @@
           outline: none;
           cursor: pointer;
           flex-shrink: 0;
+          transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                      background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           background: linear-gradient(
             to right,
             #8b5cf6 0%,
@@ -222,7 +223,6 @@
             rgba(255, 255, 255, 0.15) var(--volume-percent, 70%),
             rgba(255, 255, 255, 0.15) 100%
           );
-          transition: background 0.1s ease, height 0.2s ease;
 
           &::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -232,11 +232,30 @@
             border-radius: 50%;
             background: #ffffff;
             cursor: pointer;
-            transition: width 0.2s ease, height 0.2s ease;
-            box-shadow: 0 0 6px rgba(236, 72, 153, 0.8);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.3s ease;
           }
 
-          &:hover {
+          &::-moz-range-thumb {
+            width: 0px;
+            height: 0px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+        }
+
+        &:hover {
+          .volume-icon {
+            color: #ec4899;
+            transform: scale(1.1);
+          }
+          
+          .volume-slider {
             height: 6px;
             background: linear-gradient(
               to right,
@@ -249,18 +268,13 @@
             &::-webkit-slider-thumb {
               width: 15px;
               height: 15px;
-              background: #ffffff;
-              box-shadow: 0 0 8px rgba(236, 72, 153, 0.9);
+              box-shadow: 0 0 10px rgba(236, 72, 153, 0.8);
             }
-          }
 
-          &::-moz-range-thumb {
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: none;
-            cursor: pointer;
+            &::-moz-range-thumb {
+              width: 15px;
+              height: 15px;
+            }
           }
         }
       }
@@ -296,7 +310,6 @@
       .volume-wrapper {
         .volume-icon { 
           color: #5b4d7a;
-          &:hover { color: #ec4899; }
         }
         .volume-slider {
           background: linear-gradient(
@@ -306,7 +319,10 @@
             rgba(0, 0, 0, 0.12) var(--volume-percent, 70%),
             rgba(0, 0, 0, 0.12) 100%
           );
-          &:hover {
+        }
+        &:hover {
+          .volume-icon { color: #ec4899; }
+          .volume-slider {
             background: linear-gradient(
               to right,
               #ec4899 0%,
