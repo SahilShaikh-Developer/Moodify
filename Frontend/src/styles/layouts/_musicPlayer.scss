@@ -250,7 +250,22 @@
     .musicplay-wrapper .middle-wrapper { 
       width: auto;
       .progress-container { display: none; }
-      .controls { gap: 0.8rem; svg { display: none; } .pause { display: flex; svg { display: block; } } }
+      .controls { 
+        gap: 0.8rem; 
+        svg { 
+          display: block !important; 
+          width: 1rem !important; 
+          height: 1rem !important; 
+        } 
+        .pause { 
+          display: flex; 
+          svg { 
+            display: block !important; 
+            width: 1.2rem !important; 
+            height: 1.2rem !important; 
+          } 
+        } 
+      }
     }
     .musicplay-wrapper .bottom-wrapper { display: none; }
   }
