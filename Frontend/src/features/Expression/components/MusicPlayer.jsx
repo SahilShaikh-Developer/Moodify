@@ -83,6 +83,7 @@ const MusicPlayer = ({ mood, shouldPlay }) => {
               step="0.01"
               value={isMuted ? 0 : volume}
               onChange={changeVolume}
+              style={{ '--volume-percent': `${(isMuted ? 0 : volume) * 100}%` }}
             />
           </div>
         </div>
