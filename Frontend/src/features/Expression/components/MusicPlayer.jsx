@@ -72,20 +72,18 @@ const MusicPlayer = ({ mood, shouldPlay }) => {
         <div className="bottom-wrapper">
           {mood && <div className="mood-badge">{mood}</div>}
           <div className="volume-wrapper">
-            <div className="volume-slider-popup">
-              <input
-                type="range"
-                className="volume-slider"
-                min="0"
-                max="1"
-                step="0.01"
-                value={isMuted ? 0 : volume}
-                onChange={changeVolume}
-              />
-            </div>
             <div className="volume-icon" onClick={toggleMute}>
               {isMuted || volume === 0 ? <VolumeX /> : <Volume2 />}
             </div>
+            <input
+              type="range"
+              className="volume-slider"
+              min="0"
+              max="1"
+              step="0.01"
+              value={isMuted ? 0 : volume}
+              onChange={changeVolume}
+            />
           </div>
         </div>
       </div>
